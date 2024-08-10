@@ -783,6 +783,38 @@ class BmConnectionPriorityRequest {
   }
 }
 
+class BmLeConnectionUpdateRequest {
+  final DeviceIdentifier remoteId;
+  final int minConnectionInterval;
+  final int maxConnectionInterval;
+  final int slaveLatency;
+  final int supervisionTimeout;
+  final int minConnectionEventLen;
+  final int maxConnectionEventLen;
+
+  BmLeConnectionUpdateRequest({
+    required this.remoteId,
+    required this.minConnectionInterval,
+    required this.maxConnectionInterval,
+    required this.slaveLatency,
+    required this.supervisionTimeout,
+    required this.minConnectionEventLen,
+    required this.maxConnectionEventLen,
+  });
+
+  Map<dynamic, dynamic> toMap() {
+    final Map<dynamic, dynamic> data = {};
+    data['remote_id'] = remoteId.str;
+    data['min_connection_interval'] = this.minConnectionInterval;
+    data['max_connection_interval'] = this.maxConnectionInterval;
+    data['slave_latency'] = this.slaveLatency;
+    data['supervision_timeout'] = this.supervisionTimeout;
+    data['min_connection_event_len'] = this.minConnectionEventLen;
+    data['max_connection_event_len'] = this.maxConnectionEventLen;
+    return data;
+  }
+}
+
 class BmPreferredPhy {
   final DeviceIdentifier remoteId;
   final int txPhy;
