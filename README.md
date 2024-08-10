@@ -660,6 +660,7 @@ You can try using https://pub.dev/packages/flutter_foreground_task or possibly h
 | readRssi                  | :white_check_mark: | :white_check_mark: | :fire: | Read RSSI from a connected device                          |
 | requestMtu                | :white_check_mark: |                    | :fire: | Request to change the MTU for the device                   |
 | requestConnectionPriority | :white_check_mark: |                    | :fire: | Request to update a high priority, low latency connection  |
+| requestLeConnectionUpdate | :white_check_mark: |                    | :fire: | Request to update a device connection parameters           |
 | bondState              🌀 | :white_check_mark: |                    |        | Stream of device bond state. Can be useful on Android      |
 | createBond                | :white_check_mark: |                    | :fire: | Force a system pairing dialogue to show, if needed         |
 | removeBond                | :white_check_mark: |                    | :fire: | Remove Bluetooth Bond of device                            |

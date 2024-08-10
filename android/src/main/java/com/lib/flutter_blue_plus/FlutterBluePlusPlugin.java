@@ -1291,6 +1291,45 @@ public class FlutterBluePlusPlugin implements
                     break;
                 }
 
+                case "requestLeConnectionUpdate":
+                {
+                    // see: BmLeConnectionUpdateRequest
+                    HashMap<String, Object> data =    call.arguments();
+                    String remoteId =        (String) data.get("remote_id");
+                    int minConnectionInterval = (int) data.get("min_connection_interval");
+                    int maxConnectionInterval = (int) data.get("max_connection_interval");
+                    int slaveLatency =          (int) data.get("slave_latency");
+                    int supervisionTimeout =    (int) data.get("supervision_timeout");
+                    int minConnectionEventLen = (int) data.get("min_connection_event_len");
+                    int maxConnectionEventLen = (int) data.get("max_connection_event_len");
+
+                    // check connection
+                    BluetoothGatt gatt = mConnectedDevices.get(remoteId);
+                    if(gatt == null) {
+                        result.error("requestLeConnectionUpdate", "device is disconnected", null);
+                        break;
+                    }
+
+                    // wait if any device is bonding (increases reliability)
+                    waitIfBonding();
+
+                    // request update to connection parameters
+                    if(gatt.requestLeConnectionUpdate(
+                        minConnectionInterval,
+                        maxConnectionInterval,
+                        slaveLatency,
+                        supervisionTimeout,
+                        minConnectionEventLen,
+                        maxConnectionEventLen
+                    ) == false) {
+                        result.error("requestLeConnectionUpdate", "gatt.requestLeConnectionUpdate() returned false", null);
+                        break;
+                    }
+
+                    result.success(true);
+                    break;
+                }
+
                 case "getPhySupport":
                 {
                   if(Build.VERSION.SDK_INT < 26) { // Android 8.0 (August 2017)
